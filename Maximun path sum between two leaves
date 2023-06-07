@@ -1,19 +1,13 @@
 #include<bits/stdc++.h>
-int maxSum(TreeNode<int>*root, int &maxi){
-    if(root == NULL) return 0;
-    int left = max(0, maxSum(root->left, maxi));
-    int right = max(0, maxSum(root->right, maxi));
-    maxi = max(maxi, left+right+root->val);
-
-    return max(left, right)+root->val;
-}
-
-long long int findMaxSumPath(TreeNode<int> *root)
-{
-    // Write your code here.
-    int maxi = INT_MIN;
-    if(root==NULL )return -1;
-    maxSum(root, maxi);
-    if(root->left == NULL || root->right == NULL) return -1;
-    return maxi;
-}
+int maxPathSum(TreeNode* root) {
+        int maxi = INT_MIN;
+        solve(root, maxi);
+        return maxi;
+    }
+    int solve(TreeNode*root, int &maxi){
+        if(root == NULL) return 0;
+        int left = max(0, solve(root->left, maxi));
+        int right = max(0, solve(root->right, maxi));
+        maxi = max(maxi, left+right+root->val);
+        return max(left, right) + root->val;
+    }
